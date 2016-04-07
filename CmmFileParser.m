@@ -27,9 +27,9 @@ function [data,FileName,PathName]=CmmFileParser(varargin)
 
 
 %% UI Open The Data File
-FilterSpec = {'*.xyz';'*.csv';'*.step';'*.stp';'*.igs'};
-FilterTypes = {'*.xyz;*.csv;*.step;*.stp;*.igs',...
-    'CMM Files(*.xyz,*.csv,*.step,*.stp,*.igs)'};
+FilterSpec = {'*.xyz';'*.csv';'*.step';'*.stp';'*.igs';'*.iges'};
+FilterTypes = {'*.xyz;*.csv;*.step;*.stp;*.igs;*.iges',...
+    'CMM Files(*.xyz,*.csv,*.step,*.stp,*.igs,*.iges)'};
 
 if nargin == 1
     [PathName,FileName,Ext] = fileparts(varargin{1});
@@ -77,7 +77,7 @@ switch Ext
                 end
             end
         end
-    case '.iges' % IGES File - Find 116 Lines
+    case {'.igs','.iges'} % IGES File - Find 116 Lines
         fid = fopen(strcat(PathName,FileName),'r');
         C = textscan(fid,'%s','delimiter','');
         fclose(fid);
